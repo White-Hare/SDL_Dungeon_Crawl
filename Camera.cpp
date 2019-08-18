@@ -68,6 +68,12 @@ void Camera::focus(Object* object)
 		camera_rect.y = map_rect.y + map_rect.h - camera_rect.h;
 }
 
+void Camera::resize_camera(unsigned SCREEN_WIDTH, unsigned SCREEN_HEIGHT)
+{
+	this->camera_rect.w = SCREEN_WIDTH;
+	this->camera_rect.h = SCREEN_HEIGHT;
+}
+
 
 Camera::~Camera()
 {
