@@ -3,12 +3,14 @@
 
 #include <iostream>
 
-MagicCircles::MagicCircles(SDL_Rect map_rect, unsigned default_radius, unsigned thickness)
+MagicCircles::MagicCircles(SDL_Rect map_rect, unsigned default_radius, unsigned thickness, float life_time)
 {
 	this->color = { 0,0,0,255 };
 	this->default_radius = default_radius;
 	this->map_rect = map_rect;
 	this->thickness = thickness;
+	this->life_time = life_time;
+	this->passed_time = 0;
 }
 
 void MagicCircles::set_color(SDL_Color color)
@@ -34,6 +36,16 @@ void MagicCircles::set_circle_radius(unsigned i, unsigned radius)
 	magicCircles[i]->radius = radius;
 }
 
+void MagicCircles::set_lifetime(float life_time)
+{
+	this->life_time = life_time;
+}
+
+const unsigned MagicCircles::get_size()
+{
+	return magicCircles.size();
+}
+
 Circle* MagicCircles::get_circle(unsigned index)
 {
 	return  magicCircles[index];
@@ -42,6 +54,8 @@ Circle* MagicCircles::get_circle(unsigned index)
 void MagicCircles::append_circle(Circle circle)
 {
 	magicCircles.push_back(new Circle{circle});
+	if (life_time >= 0)
+		add_time_stamp(magicCircles.size() - 1);
 }
 
 void MagicCircles::append_circle(int centerx, int centery)
@@ -62,6 +76,21 @@ void MagicCircles::erase_circle(unsigned index)
 	catch (const std::out_of_range& oor)
 	{
 		std::cout << "Already Erased\n";
+	}
+}
+
+void MagicCircles::add_time_stamp(int index)
+{
+	time_stamps.push_back(std::pair<int, float>(index, passed_time + life_time));
+}
+
+void MagicCircles::erase_time_stamp(int index)
+{
+	time_stamps.erase(time_stamps.begin() + index);
+
+	for (auto& ts : time_stamps) {
+	    if (ts.first >= time_stamps[index].first)
+			ts.first--;
 	}
 }
 
@@ -160,8 +189,22 @@ std::vector<int> MagicCircles::collision_list(SDL_Rect* rect)
 }
 
 
-void MagicCircles::draw(SDL_Renderer* renderer)
+void MagicCircles::draw(SDL_Renderer* renderer, float delta)
 {
+	if (delta && life_time >= 0) {
+		passed_time += delta;
+
+		int i = 0;
+		while (i < time_stamps.size()) {
+			if (passed_time > time_stamps[i].second) {
+				erase_circle(time_stamps[i].first);
+				erase_time_stamp(i);
+				i--;
+			}
+			i++;
+		}
+	}
+
 	SDL_Color *renderer_color = new SDL_Color;
 	SDL_GetRenderDrawColor(renderer, &renderer_color->r, &renderer_color->g, &renderer_color->b, &renderer_color->a);
 

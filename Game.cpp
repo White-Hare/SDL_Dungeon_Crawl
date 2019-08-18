@@ -109,8 +109,8 @@ bool Game::load_objects()
 	MagicCircles* dark_magic_circle = new MagicCircles(map_rect, 10, 4);
 	dark_magic_circle->set_circle_radius(30);
 	dark_magic_circle->set_color({ 20, 20, 20, 210 });
-	dark_magic_circle->append_circle(WIDTH / 2, HEIGHT / 2);
-
+	dark_magic_circle->set_lifetime(0.5f);
+	
 
 
 	objects_.push_back(vase);
@@ -158,11 +158,14 @@ void Game::controlls()
 }
 
 
-
 void Game::move()
 {
-	if (this->hero->is_collided(this->magic_circles_[0]->get_circle(0)))
+	if (this->magic_circles_[0]->collision_list(hero->get_self_rect()).size() != 0)
 		std::cout << "YOU DIED\n";
+	auto& dark_magic_circles = magic_circles_[0];
+
+    while(dark_magic_circles->get_size() < 5)
+		dark_magic_circles->append_circle(rand() % WIDTH,rand() % HEIGHT);
 
 }
 
@@ -171,6 +174,8 @@ void Game::render()
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_RenderClear(renderer);
 
+	for (auto& mc : magic_circles_)
+		mc->draw(renderer, delta);
 
 	for (auto& m : multiple_objects_)
 		m->render(renderer);
@@ -183,11 +188,7 @@ void Game::render()
 
 	for (auto& b : guns_)
 		b->render(renderer, nullptr);
-
-	for (auto& mc : magic_circles_) 
-		mc->draw(renderer);
 	
-
 	hero->render(renderer, delta);
 
 	SDL_RenderPresent(renderer);
