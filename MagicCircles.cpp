@@ -105,6 +105,61 @@ void MagicCircles::place(unsigned index, int x, int y)
 		magicCircles[index]->center_y = map_rect.y + map_rect.h - magicCircles[index]->radius * 2;
 }
 
+std::vector<int> MagicCircles::collision_list(Circle* circle2)
+{
+	std::vector<int> coll_list;
+
+    for(int i=0; i < magicCircles.size(); i++)
+    {
+		int dx = magicCircles[i]->center_x - circle2->center_x;
+		int dy = magicCircles[i]->center_y - circle2->center_y;
+		int sum_of_radii = magicCircles[i]->radius + circle2->radius;
+
+		if (dx*dx + dy * dy < sum_of_radii*sum_of_radii)
+			coll_list.push_back(i);
+    }
+
+	return  coll_list;
+}
+
+std::vector<int> MagicCircles::collision_list(SDL_Rect* rect)
+{
+	std::vector<int> coll_list;
+
+
+	for (int i = 0; i < magicCircles.size(); i++)
+	{
+		int closest_x, closest_y;
+
+		//for finding closest x
+		if (magicCircles[i]->center_x < rect->x)
+			closest_x = rect->x;
+		else if (magicCircles[i]->center_x > rect->x + rect->w)
+			closest_x = rect->x + rect->w;
+		else
+			closest_x = magicCircles[i]->center_x;
+
+
+		//for finding closest y
+		if (magicCircles[i]->center_y < rect->y)
+			closest_y = rect->y;
+		else if (magicCircles[i]->center_y > rect->y + rect->h)
+			closest_y = rect->y + rect->h;
+		else
+			closest_y = magicCircles[i]->center_y;
+
+		const int dx = magicCircles[i]->center_x - closest_x;
+		const int dy = magicCircles[i]->center_y - closest_y;
+
+
+		if (dx*dx + dy * dy < magicCircles[i]->radius*magicCircles[i]->radius)
+			coll_list.push_back(i);
+	}
+
+	return coll_list;
+}
+
+
 void MagicCircles::draw(SDL_Renderer* renderer)
 {
 	SDL_Color *renderer_color = new SDL_Color;
@@ -144,4 +199,5 @@ void MagicCircles::draw(SDL_Renderer* renderer)
 
 MagicCircles::~MagicCircles()
 {
+	magicCircles.clear();
 }

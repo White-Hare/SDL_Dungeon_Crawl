@@ -20,6 +20,10 @@ public:
 	void move(unsigned int index, unsigned int velocity, Direction dx, Direction dy, float delta);
 	void place(unsigned index, int center_x, int center_y);
 
+	std::vector<int> collision_list(SDL_Rect* rect);
+	std::vector<int> collision_list(Circle* circle2);
+
+
 	Circle* get_circle(unsigned int index);
 	void erase_circle(unsigned int index);
 	void append_circle(Circle circle);

@@ -88,7 +88,7 @@ bool Game::load_objects()
 	vase->scale(32, 32);
 	vase->place(100, 140);
 
-
+    
 
 	hero = new Hero(map_rect, 200);
 	if(!hero->load_texture("images/Hero1.png", renderer))
