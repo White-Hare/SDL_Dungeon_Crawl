@@ -157,7 +157,6 @@ void Game::controlls()
 	hero->gun_controller(guns_[0], pistol, objects_, delta, currentKeyState);
 }
 
-
 void Game::move()
 {
 	if (this->magic_circles_[0]->collision_list(hero->get_self_rect()).size() != 0)

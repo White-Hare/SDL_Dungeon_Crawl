@@ -112,8 +112,10 @@ void Hero::gun_controller(Guns* gun,void (function)(SDL_Rect* rect, Direction di
 
 	for (auto& obj : objects) {
 		for (int i : gun->collision_list(obj->get_self_rect())) {
-			objects[0]->place(rand() % (map_rect.w - 80) + 40, rand() % (map_rect.h - 80) + 40);
-			gun->erase_rect(i);
+			do {
+				objects[0]->place(rand() % (map_rect.w - 80) + 40, rand() % (map_rect.h - 80) + 40);
+				gun->erase_rect(i);
+			} while (is_collided(obj[0].get_self_rect()));
 		}
 	}
 }
