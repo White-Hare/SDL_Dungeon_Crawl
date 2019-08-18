@@ -22,6 +22,7 @@ public:
 	Object* &operator[](int index);
 
 	SDL_Rect* get_rect(int index);
+	const unsigned get_size();
 
 	void move(unsigned index, unsigned int velocity, NormalVector x_axis, NormalVector y_axis, float delta);
 	void place(unsigned index, int x, int y);
@@ -30,8 +31,8 @@ public:
 	std::vector<int> collision_list(Circle* circle);
 
 
-	void render(SDL_Renderer* renderer, SDL_Rect* clip = nullptr) override;
-	void render(SDL_Renderer* renderer, SDL_RendererFlip flip, double angle, SDL_Point* center, SDL_Rect* clip = nullptr) override;
+	void render( SDL_Rect *camera, SDL_Renderer* renderer, SDL_Rect* clip = nullptr) override;
+	void render( SDL_Rect *camera, SDL_Renderer* renderer, SDL_RendererFlip flip, double angle, SDL_Point* center, SDL_Rect* clip = nullptr) override;
 
     virtual ~MultipleObjects();
 };

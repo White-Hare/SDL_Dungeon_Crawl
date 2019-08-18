@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Wepons">
+      <UniqueIdentifier>{21d4f165-531d-41b9-bb5a-4dc5eb26176b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Characters">
+      <UniqueIdentifier>{9d78f8a1-c0c2-4fa5-b3a1-49ab9e1ff014}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Wepons\Guns">
+      <UniqueIdentifier>{b26255ca-22c0-4363-bcb7-a033dfd593bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Wepons">
+      <UniqueIdentifier>{e9354d62-ba97-4e0c-a52f-317fa4287681}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Wepons\Guns">
+      <UniqueIdentifier>{5bacbcfb-d7ed-4170-863f-648dd60ce055}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Characters">
+      <UniqueIdentifier>{a16a194b-61da-44fa-9c5b-1ef0b242aaa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Wepons\Magic">
+      <UniqueIdentifier>{85a87eb9-0e3b-4846-864d-e16cbfeac65a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Wepons\Magic">
+      <UniqueIdentifier>{0c714aad-0450-4ecb-8fd1-3318a338e7b4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MultipleObjects.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Guns.cpp">
+      <Filter>Source Files\Wepons\Guns</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Source Files\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Hero.cpp">
+      <Filter>Source Files\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MagicCircles.cpp">
+      <Filter>Source Files\Wepons\Magic</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MultipleObjects.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Guns.h">
+      <Filter>Header Files\Wepons\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="Pistol.h">
+      <Filter>Header Files\Wepons\Guns</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Hero.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="MagicCircles.h">
+      <Filter>Header Files\Wepons\Magic</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="images\brick.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\bullet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\cowboy_animation.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\dirt.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\glass.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\grass.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\Hero1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\Ladder.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\Tree1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\Vase.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

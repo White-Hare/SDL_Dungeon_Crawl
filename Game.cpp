@@ -19,7 +19,7 @@
 #define  WIDTH  640
 #define  HEIGHT 480
 
-SDL_Rect map_rect{0, 0, WIDTH, HEIGHT};
+SDL_Rect map_rect{ -WIDTH / 2, -HEIGHT / 2, WIDTH * 2, HEIGHT * 2  };
 
 
 
@@ -121,9 +121,14 @@ bool Game::load_objects()
 
 
 	this->multiple_objects_[0]->place(7, 340, 200);
+	this->multiple_objects_[0]->place(9, 100, 200);
+	this->multiple_objects_[0]->place(11, 100, 150);
+
 
 
 	last_time = SDL_GetTicks() / 1000.f; //for prevent too big delta
+
+	camera = new Camera(map_rect, WIDTH, HEIGHT);
 
     return true;
 }
@@ -166,6 +171,7 @@ void Game::move()
     while(dark_magic_circles->get_size() < 5)
 		dark_magic_circles->append_circle(rand() % WIDTH,rand() % HEIGHT);
 
+	camera->focus(hero);
 }
 
 void Game::render()
@@ -173,22 +179,23 @@ void Game::render()
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_RenderClear(renderer);
 
+
 	for (auto& mc : magic_circles_)
-		mc->draw(renderer, delta);
+		mc->draw(&this->camera->camera_rect, renderer, delta);
 
 	for (auto& m : multiple_objects_)
-		m->render(renderer);
+		m->render(&this->camera->camera_rect,  renderer);
 
 	for (auto& o : objects_)
-		o->render(renderer);
+		o->render(&this->camera->camera_rect,  renderer);
 
 	for (auto& c : characters_)
-		c->render(renderer, delta);
+		c->render(&this->camera->camera_rect,  renderer, delta);
 
 	for (auto& b : guns_)
-		b->render(renderer, nullptr);
+		b->render(&this->camera->camera_rect,  renderer, nullptr);
 	
-	hero->render(renderer, delta);
+	hero->render(&this->camera->camera_rect,  renderer, delta);
 
 	SDL_RenderPresent(renderer);
 }

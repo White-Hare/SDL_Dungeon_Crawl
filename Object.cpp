@@ -169,14 +169,18 @@ bool Object::is_collided(Circle* circle)
 }
 
 
-void Object::render(SDL_Renderer* renderer, SDL_Rect* clip)
+void Object::render(SDL_Rect* camera, SDL_Renderer* renderer, SDL_Rect* clip)
 {
-	SDL_RenderCopy(renderer, this->texture_, clip, this->self_rect);
+	SDL_Rect* tmp_rect = new SDL_Rect{ -camera->x + self_rect->x, -camera->y + self_rect->y, self_rect->w, self_rect->h };
+	SDL_RenderCopy(renderer, this->texture_, clip, tmp_rect);
+	delete tmp_rect;
 }
 
-void Object::render(SDL_Renderer* renderer, SDL_RendererFlip flip, double angle, SDL_Point* center, SDL_Rect* clip)
+void Object::render(SDL_Rect* camera, SDL_Renderer* renderer, SDL_RendererFlip flip, double angle, SDL_Point* center, SDL_Rect* clip)
 {
-	SDL_RenderCopyEx(renderer, this->texture_, clip, this->self_rect, angle, center, flip);
+	SDL_Rect* tmp_rect = new SDL_Rect{ -camera->x + self_rect->x, -camera->y + self_rect->y, self_rect->w, self_rect->h };
+	SDL_RenderCopyEx(renderer, this->texture_, clip, tmp_rect, angle, center, flip);
+	delete tmp_rect;
 }
 
 

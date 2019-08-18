@@ -1,5 +1,9 @@
-#pragma once
-#include "MultipleObjects.h"
+#ifndef MAGICCIRCLES_H
+#define MAGICCIRCLES_H
+
+
+#include "Object.h"
+#include <vector>
 class MagicCircles 
 {
 	std::vector<Circle*> magicCircles;
@@ -40,8 +44,10 @@ public:
 
 	void pop_circle();
 
-	void draw(SDL_Renderer* renderer, float delta = NULL);
+	void draw( SDL_Rect *camera, SDL_Renderer* renderer, float delta = NULL);
 
 	virtual ~MagicCircles();
 };
 
+
+#endif

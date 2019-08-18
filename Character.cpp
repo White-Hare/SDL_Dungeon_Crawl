@@ -28,11 +28,13 @@ void Character::create_animation(float animation_frequency, unsigned rows, unsig
 		}
 }
 
-void Character::render(SDL_Renderer* renderer, float delta)
+void Character::render(SDL_Rect* camera,SDL_Renderer* renderer, float delta)
 {
 	animation_time += delta;
 
-	SDL_RenderCopy(renderer, this->texture_, &this->frames[current_frame], this->self_rect);
+	SDL_Rect* tmp_rect = new SDL_Rect{ -camera->x + self_rect->x, -camera->y + self_rect->y, self_rect->w, self_rect->h };
+	SDL_RenderCopy(renderer, this->texture_, &this->frames[current_frame], tmp_rect);
+	delete tmp_rect;
 
 	if (animation_time > animation_frequency) {
 		current_frame++;
@@ -42,11 +44,13 @@ void Character::render(SDL_Renderer* renderer, float delta)
 }
 
 
-void Character::render(SDL_Renderer* renderer, float delta, SDL_RendererFlip flip, double angle, SDL_Point* center)
+void Character::render(SDL_Rect* camera, SDL_Renderer* renderer, float delta, SDL_RendererFlip flip, double angle, SDL_Point* center)
 {
 	animation_time += delta;
 
-	SDL_RenderCopyEx(renderer, this->texture_, &this->frames[current_frame], this->self_rect, angle, center, flip);
+	SDL_Rect* tmp_rect = new SDL_Rect{ camera->x + self_rect->x, camera->y + self_rect->y, self_rect->w, self_rect->h };
+	SDL_RenderCopyEx(renderer, this->texture_, &this->frames[current_frame], tmp_rect, angle, center, flip);
+	delete tmp_rect;
 
 	if (animation_time > animation_frequency) {
 		current_frame++;

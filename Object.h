@@ -56,8 +56,8 @@ public:
 	bool is_collided(Circle* circle);
 
 
-	virtual void render(SDL_Renderer* renderer, SDL_Rect *clip = nullptr);
-	virtual void render(SDL_Renderer* renderer, SDL_RendererFlip flip, double angle = 0, SDL_Point* center = nullptr, SDL_Rect *clip = nullptr);//SDL_FLIP_NONE for default
+	virtual void render( SDL_Rect *camera, SDL_Renderer* renderer, SDL_Rect *clip = nullptr);
+	virtual void render( SDL_Rect *camera,SDL_Renderer* renderer, SDL_RendererFlip flip, double angle = 0, SDL_Point* center = nullptr, SDL_Rect *clip = nullptr);//SDL_FLIP_NONE for default
     
 	~Object();
 };

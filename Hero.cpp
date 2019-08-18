@@ -142,7 +142,7 @@ bool Hero::assign_frame_sequence(std::vector<std::pair<int, int>> frame_capes)
 }
 
 
-void Hero::render(SDL_Renderer* renderer, float delta)
+void Hero::render(SDL_Rect* camera, SDL_Renderer* renderer, float delta)
 {
 	animation_time += delta;
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
@@ -177,8 +177,9 @@ void Hero::render(SDL_Renderer* renderer, float delta)
 
 	}
 
-
-	SDL_RenderCopyEx(renderer, this->texture_, &this->frames[current_frame + current_frame_pair[0]], this->self_rect, 0 ,nullptr, flip);
+	SDL_Rect* tmp_rect = new SDL_Rect{ -camera->x + self_rect->x, -camera->y + self_rect->y, self_rect->w, self_rect->h };
+	SDL_RenderCopyEx(renderer, this->texture_, &this->frames[current_frame + current_frame_pair[0]], tmp_rect, 0 ,nullptr, flip);
+	delete tmp_rect;
 
 	if (animation_time > animation_frequency) {
 		current_frame++;

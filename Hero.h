@@ -26,7 +26,7 @@ public:
     //[0,2],[3,5] ...
 	bool assign_frame_sequence(std::vector<std::pair<int, int>> frame_capes);
 
-	void render(SDL_Renderer* renderer, float delta);
+	void render( SDL_Rect *camera, SDL_Renderer* renderer, float delta);
 
 	~Hero();
 };

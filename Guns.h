@@ -34,8 +34,8 @@ public:
     //function -> void function(SDL_Rect pos*, Direction direction, float delta)
 	void behavior(void (function)(SDL_Rect*, Direction, float), float delta);
 
-	void render(SDL_Renderer* renderer, SDL_Rect* clip = nullptr) override;
-	void render(SDL_Renderer* renderer, SDL_RendererFlip flip, double angle, SDL_Point* center, SDL_Rect* clip = nullptr) override;
+	void render( SDL_Rect * camera, SDL_Renderer* renderer, SDL_Rect* clip = nullptr) override;
+	void render( SDL_Rect * camera, SDL_Renderer* renderer, SDL_RendererFlip flip, double angle, SDL_Point* center, SDL_Rect* clip = nullptr) override;
 
 	~Guns();
 };

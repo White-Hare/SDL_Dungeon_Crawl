@@ -9,6 +9,7 @@
 #include "Guns.h"
 #include "Hero.h"
 #include "MagicCircles.h"
+#include "Camera.h"
 
 class Game
 {
@@ -27,6 +28,7 @@ class Game
 
 
 	Hero* hero;
+	Camera *camera;
 
 public:
 	Game();

@@ -19,8 +19,8 @@ public:
 
 	void create_animation(float animation_frequency, unsigned rows, unsigned columns = 1);
 
-	void render(SDL_Renderer* renderer, float delta);
-	void render(SDL_Renderer* renderer, float delta, SDL_RendererFlip flip, double angle = 0.0, SDL_Point* center = nullptr);//SDL_FLIP_NONE for default
+	void render( SDL_Rect *camera, SDL_Renderer* renderer, float delta);
+	void render( SDL_Rect *camera, SDL_Renderer* renderer, float delta, SDL_RendererFlip flip, double angle = 0.0, SDL_Point* center = nullptr);//SDL_FLIP_NONE for default
 
 	~Character();
 };
