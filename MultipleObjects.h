@@ -16,7 +16,7 @@ public:
 	void append_rect(int x, int y);
 	void append_rect(SDL_Rect* rect);
 	void pop_rect();
-	void erase_rect(int index);
+	virtual void erase_rect(int index);
 
 	//pointer->operator[](index);
 	Object* &operator[](int index);
@@ -24,7 +24,7 @@ public:
 	SDL_Rect* get_rect(int index);
 	const unsigned get_size();
 
-	void move(unsigned index, unsigned int velocity, NormalVector x_axis, NormalVector y_axis, float delta);
+	void move(unsigned index, int velocity, NormalVector x_axis, NormalVector y_axis, float delta);
 	void place(unsigned index, int x, int y);
 
 	std::vector<int> collision_list(SDL_Rect* rect2);

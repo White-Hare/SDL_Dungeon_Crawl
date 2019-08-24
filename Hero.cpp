@@ -6,11 +6,11 @@ Hero::Hero(SDL_Rect map_rect, const int velocity):Character(map_rect)
 {
 	this->velocity = velocity;
 	this->direction_ = UP;
-	this->current_frame_pair = new int[2];
+	this->current_frame_pair = new int[2]{0,0};
 	this->firing_time = 0;
 }
 
-void Hero::contoller(const Uint8* keystates, float delta, std::vector<Object*> objects, std::vector<MultipleObjects*> m_objects)
+void Hero::contoller(const Uint8* keystates, float delta, std::vector<Object*> objects, std::vector<MultipleObjects*> multiple_objects)
 {
 
 	int dx = 0, dy = 0;
@@ -35,7 +35,7 @@ void Hero::contoller(const Uint8* keystates, float delta, std::vector<Object*> o
 	this->move(this->velocity, static_cast<NormalVector>(dx), static_cast<NormalVector>(dy), delta);
 
 
-	for (auto& m_obj : m_objects) {
+	for (auto& m_obj : multiple_objects) {
 
 		if (dx == 0 && dy == 0)
 			break;
@@ -97,7 +97,7 @@ void Hero::contoller(const Uint8* keystates, float delta, std::vector<Object*> o
     
 }
 
-void Hero::gun_controller(Guns* gun,void (function)(SDL_Rect* rect, Direction direction, float delta), std::vector<Object*> objects, float delta, const Uint8* keystate)
+void Hero::gun_controller(Guns* gun, void function(SDL_Rect* rect, Direction direction, float delta), std::vector<Object*> objects, std::vector<Enemies*> enemies, float delta, const Uint8* keystate)
 {
 	this->firing_time += delta;
 
@@ -113,7 +113,7 @@ void Hero::gun_controller(Guns* gun,void (function)(SDL_Rect* rect, Direction di
 	for (auto& obj : objects) {
 		for (int i : gun->collision_list(obj->get_self_rect())) {
 			do {
-				objects[0]->place(rand() % (map_rect.w - 80) + 40, rand() % (map_rect.h - 80) + 40);
+				objects[0]->place(rand() % (640 - 40 - objects[0]->get_self_rect()->w) + 40, rand() % (480 - 40 - objects[0]->get_self_rect()->h) + 40);
 			} while (is_collided(obj[0].get_self_rect()));
 			gun->erase_rect(i);
 
@@ -136,7 +136,8 @@ bool Hero::assign_frame_sequence(std::vector<std::pair<int, int>> frame_capes)
 	}
 	
     this->frame_capes = frame_capes;
-	current_frame_pair[1] = frame_capes.size();
+	current_frame_pair[0] = frame_capes[0].first;
+	current_frame_pair[1] = frame_capes[0].second;
 
 	return true;
 }

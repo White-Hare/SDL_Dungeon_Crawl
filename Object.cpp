@@ -41,6 +41,7 @@ void Object::assign_texture(SDL_Texture* texture, SDL_Rect* rect)
 
 void Object::scale(int width)
 {
+
 	this->self_rect->h = width * (self_rect->h / self_rect->w);
 	this->self_rect->w = width;
 }
@@ -65,15 +66,7 @@ void Object::move(int velocity, NormalVector x_axis, NormalVector y_axis, float 
 	else if (y_axis)
 		self_rect->y +=velocity * y_axis * delta;
 
-	if (self_rect->x < map_rect.x)
-		self_rect->x = map_rect.x;
-	if (self_rect->x + self_rect->w > map_rect.x + map_rect.w)
-		self_rect->x = map_rect.x + map_rect.w - self_rect->w;
-
-	if (self_rect->y < map_rect.y)
-		self_rect->y = map_rect.y;
-	if (self_rect->y + self_rect->h > map_rect.y + map_rect.h)
-		self_rect->y = map_rect.y + map_rect.h - self_rect->h;
+	place_in_map(self_rect, map_rect);
 }
 
 void Object::place(int x, int y)
@@ -81,16 +74,11 @@ void Object::place(int x, int y)
 	self_rect->x = x;
 	self_rect->y = y;
 
-	if (self_rect->x < map_rect.x)
-		self_rect->x = map_rect.x;
-	if (self_rect->x + self_rect->w > map_rect.x + map_rect.w)
-		self_rect->x = map_rect.x + map_rect.w - self_rect->w;
-
-	if (self_rect->y < map_rect.y)
-		self_rect->y = map_rect.y;
-	if (self_rect->y + self_rect->h > map_rect.y + map_rect.h)
-		self_rect->y = map_rect.y + map_rect.h - self_rect->h;
+	place_in_map(self_rect, map_rect);
 }
+
+
+
 
 void Object::set_colorModulation(SDL_Color color)
 {

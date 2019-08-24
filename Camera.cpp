@@ -74,6 +74,26 @@ void Camera::resize_camera(unsigned SCREEN_WIDTH, unsigned SCREEN_HEIGHT)
 	this->camera_rect.h = SCREEN_HEIGHT;
 }
 
+bool Camera::is_collided(SDL_Rect* rect)
+{
+	if ((camera_rect.w || camera_rect.h) || rect == nullptr)
+		return false;
+
+	if (camera_rect.x > rect->x + rect->w)
+		return false;
+
+	if (camera_rect.x + camera_rect.w < rect->x)
+		return false;
+
+	if (camera_rect.y > rect->y + rect->h)
+		return false;
+
+	if (camera_rect.y + camera_rect.h < rect->y)
+		return false;
+
+	return true;
+}
+
 
 Camera::~Camera()
 {

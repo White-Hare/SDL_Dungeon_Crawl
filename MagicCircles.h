@@ -26,7 +26,7 @@ public:
 	//minus values for infinity
 	void set_lifetime(float life_time);
 
-	void move(unsigned int index, unsigned int velocity, Direction dx, Direction dy, float delta);
+	void move(unsigned int index, int velocity, Direction dx, Direction dy, float delta);
 	void place(unsigned index, int center_x, int center_y);
 
 	std::vector<int> collision_list(SDL_Rect* rect);

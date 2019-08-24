@@ -25,7 +25,9 @@ enum NormalVector
 };
 
 enum  Direction
-{LEFT = 180, RIGHT = 0, UP = 270, DOWN = 90, NO_DIRECTION = -1};
+{LEFT = 180, RIGHT = 0, UP = 270, DOWN = 90,
+UP_LEFT = 225, UP_RIGHT = 135, DOWN_RIGHT = 315, DOWN_LEFT = 45,  
+NO_DIRECTION = -1};
 
 class Object
 {
@@ -47,6 +49,7 @@ public:
 	void move(int velocity, NormalVector x_axis, NormalVector y_axis, float delta);
 	void place(int x, int y);
 
+
 	void set_colorModulation(SDL_Color color);
 	void set_blendMode(SDL_BlendMode blending);
 	void set_Alpha(Uint8 alpha);
@@ -61,5 +64,20 @@ public:
     
 	~Object();
 };
+
+
+static  void place_in_map(SDL_Rect* rect, SDL_Rect map_rect)
+{
+	if (rect->x < map_rect.x)
+		rect->x = map_rect.x;
+	if (rect->x + rect->w > map_rect.x + map_rect.w)
+		rect->x = map_rect.x + map_rect.w - rect->w;
+
+	if (rect->y < map_rect.y)
+		rect->y = map_rect.y;
+	if (rect->y + rect->h > map_rect.y + map_rect.h)
+		rect->y = map_rect.y + map_rect.h - rect->h;
+}
+
 
 #endif

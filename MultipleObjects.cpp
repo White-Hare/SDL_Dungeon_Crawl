@@ -54,30 +54,24 @@ const unsigned MultipleObjects::get_size()
 }
 
 
-void MultipleObjects::move(unsigned index, unsigned int velocity, NormalVector x_axis, NormalVector y_axis, float delta)
+void MultipleObjects::move(unsigned index, int velocity, NormalVector x_axis, NormalVector y_axis, float delta)
 {
 
 
-    if(x_axis && y_axis){
-		rects[index]->x += x_axis * delta * COS45;
-		rects[index]->y += y_axis * delta * SIN45;
-    }
+	if (x_axis && y_axis) {
+		rects[index]->x += velocity * x_axis * delta * COS45;
+		rects[index]->y += velocity * y_axis * delta * SIN45;
+	}
 
-    else if(x_axis)
-        rects[index]->x += x_axis * delta;
+	else if (x_axis)
+		rects[index]->x += velocity * x_axis * delta;
 
-    else if(y_axis)
-        rects[index]->y += y_axis * delta;
+	else if (y_axis)
+		rects[index]->y += velocity * y_axis* delta;
 
-	if (rects[index]->x < map_rect.x)
-		rects[index]->x = map_rect.x;
-	if (rects[index]->x + rects[index]->w > map_rect.x + map_rect.w)
-		rects[index]->x = map_rect.x + map_rect.w - rects[index]->w;
 
-	if (rects[index]->y < map_rect.y)
-		rects[index]->y = map_rect.y;
-	if (rects[index]->y + rects[index]->h > map_rect.y + map_rect.h)
-		rects[index]->y = map_rect.y + map_rect.h - rects[index]->h;
+
+	place_in_map(rects[index], map_rect);
 }
 
 void MultipleObjects::place(unsigned index, int x, int y)
@@ -85,15 +79,7 @@ void MultipleObjects::place(unsigned index, int x, int y)
 	rects[index]->x = x;
 	rects[index]->y = y;
 
-	if (rects[index]->x < map_rect.x)
-		rects[index]->x = map_rect.x;
-	if (rects[index]->x + rects[index]->w > map_rect.x + map_rect.w)
-		rects[index]->x = map_rect.x + map_rect.w - rects[index]->w;
-
-	if (rects[index]->y < map_rect.y)
-		rects[index]->y = map_rect.y;
-	if (rects[index]->y + rects[index]->h > map_rect.y + map_rect.h)
-		rects[index]->y = map_rect.y + map_rect.h - rects[index]->h;
+	place_in_map(rects[index], map_rect);
 }
 
 std::vector<int> MultipleObjects::collision_list(SDL_Rect* rect2)

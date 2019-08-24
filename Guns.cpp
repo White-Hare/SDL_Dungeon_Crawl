@@ -44,7 +44,7 @@ void Guns::add_bullet()
 	directions_.push_back(RIGHT);
 }
 
-float Guns::get_firing_frequency()
+const float Guns::get_firing_frequency()
 {
     return firing_frequency;
 }

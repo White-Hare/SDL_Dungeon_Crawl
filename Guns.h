@@ -21,7 +21,7 @@ public:
 	void change_boss(SDL_Rect* boss);
 
 	void set_firing_frequency(float frequency);
-	float get_firing_frequency();
+	const float get_firing_frequency();
 
 	
     
@@ -29,7 +29,7 @@ public:
 	void add_bullet();
 	void add_bullet(Direction direction);
 
-	void erase_rect(int index);
+	void erase_rect(int index) override;
 
     //function -> void function(SDL_Rect pos*, Direction direction, float delta)
 	void behavior(void (function)(SDL_Rect*, Direction, float), float delta);

@@ -94,7 +94,7 @@ void MagicCircles::erase_time_stamp(int index)
 	}
 }
 
-void MagicCircles::move(unsigned index, unsigned velocity, Direction x_axis, Direction y_axis, float delta)
+void MagicCircles::move(unsigned index, int velocity, Direction x_axis, Direction y_axis, float delta)
 {
 	if (x_axis && y_axis) {
 		magicCircles[index]->center_x += x_axis * delta * COS45;

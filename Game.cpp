@@ -1,8 +1,11 @@
 #include "Game.h"
 #include "Object.h"
 #include "Character.h"
-#include "MultipleObjects.h"
+#include "Multipleobjects.h"
 #include "Guns.h"
+#include "Enemies.h"
+#include "Pistol.h"
+#include "Hero.h"
 
 
 #include <SDL.h>
@@ -11,9 +14,9 @@
 #include <SDL_image.h>
 
 #include <iostream>
-#include "Pistol.h"
-#include "Hero.h"
+
 #include <ctime>
+#include "Slimes.h"
 
 
 #define  WIDTH  640
@@ -32,6 +35,7 @@ Game::Game()
 	running = true;
 	last_time = 0;
 	delta = 0;
+	camera = new Camera(map_rect, WIDTH, HEIGHT);
 }
 
 bool Game::init(const char* name)
@@ -94,14 +98,25 @@ bool Game::load_objects()
 	if(!hero->load_texture("images/Hero1.png", renderer))
         return false;
 	hero->create_animation(0.5, 4, 4);
-	hero->assign_frame_sequence(std::vector < std::pair<int, int>>{ {0, 3}, { 4,7 }, {8,11}});
-	hero->scale(64,64);
+	hero->assign_frame_sequence(std::vector<std::pair<int, int>>{ { 0, 4 }, { 4,8 }, { 8,12 }, { 12,16 }});
+    hero->scale(64,64);
 	hero->place(50, 50);
 
 
+	Enemies* slime = new Enemies(map_rect, 150);
+	slime->load_texture("images/slime.png", renderer);
+	slime->create_animation(1.f, 2, 2);
+	slime->assign_frame_sequence(std::vector<std::pair<int, int>>{ { 0, 4}});
+	slime->scale(32,32);
+
+	slime->add_enemy(400, 400);
+	slime->add_enemy(300, 300);
+
+    
 
 	Guns* pistol_bullet = new Guns(map_rect, hero);
-	pistol_bullet->load_texture("images/bullet.png", renderer);
+	if(!pistol_bullet->load_texture("images/bullet.png", renderer))
+        return false;
 	pistol_bullet->set_firing_frequency(0.5f);
 
 
@@ -114,10 +129,10 @@ bool Game::load_objects()
 
 
 	objects_.push_back(vase);
-    multiple_objects_.push_back(bricks);
+	multiple_objects_.push_back(bricks);
+	enemies_.push_back(slime);
 	guns_.push_back(pistol_bullet);
 	magic_circles_.push_back(dark_magic_circle);
-
 
 
 	this->multiple_objects_[0]->place(7, 340, 200);
@@ -128,7 +143,6 @@ bool Game::load_objects()
 
 	last_time = SDL_GetTicks() / 1000.f; //for prevent too big delta
 
-	camera = new Camera(map_rect, WIDTH, HEIGHT);
 
     return true;
 }
@@ -159,7 +173,7 @@ void Game::controlls()
 
 
 	hero->contoller(currentKeyState, delta, objects_, multiple_objects_);
-	hero->gun_controller(guns_[0], pistol, objects_, delta, currentKeyState);
+	hero->gun_controller(guns_[0], pistol, objects_, enemies_, delta, currentKeyState);
 }
 
 void Game::move()
@@ -172,6 +186,22 @@ void Game::move()
 		dark_magic_circles->append_circle(rand() % WIDTH,rand() % HEIGHT);
 
 	camera->focus(hero);
+
+
+	for (auto& e : enemies_) {
+		e->behavior(slime, objects_, multiple_objects_, guns_, delta);
+		for (int i = 0; i < e->get_size(); i++) {
+			std::vector<int> coll_list = this->guns_[0]->collision_list(e->get_rect(i));
+			if (coll_list.size() != 0) {
+				e->erase_enemy(i);
+				for (auto c : coll_list) 
+					guns_[0]->erase_rect(c);
+				
+			}
+		}
+	}
+
+
 }
 
 void Game::render()
@@ -192,6 +222,9 @@ void Game::render()
 	for (auto& c : characters_)
 		c->render(&this->camera->camera_rect,  renderer, delta);
 
+	for (auto& e : enemies_)
+		e->render(&this->camera->camera_rect, renderer, delta);
+
 	for (auto& b : guns_)
 		b->render(&this->camera->camera_rect,  renderer, nullptr);
 	
@@ -207,8 +240,10 @@ void Game::close()
 
 	delete event;
 
-	for (auto& a : objects_)
-		delete a;
+
+	delete hero;
+
+    delete camera;
 
 	SDL_Quit();
 	IMG_Quit();

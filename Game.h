@@ -10,6 +10,9 @@
 #include "Hero.h"
 #include "MagicCircles.h"
 #include "Camera.h"
+#include "Enemies.h"
+
+
 
 class Game
 {
@@ -20,12 +23,12 @@ class Game
     bool running;
 	float last_time = 0, delta = 0;
 
-	std::vector<Object*> objects_;
+    std::vector<Object*> objects_;
 	std::vector<MultipleObjects*> multiple_objects_;
 	std::vector<Character*> characters_;
+	std::vector<Enemies*> enemies_;
 	std::vector<Guns*> guns_;
 	std::vector<MagicCircles*> magic_circles_;
-
 
 	Hero* hero;
 	Camera *camera;
