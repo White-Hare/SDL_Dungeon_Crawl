@@ -6,14 +6,13 @@ Enemies::Enemies(SDL_Rect map_rect, int velocity):Character(map_rect)
 {
 	this->velocity = velocity;
 	current_frame_pair = new int[2]{0,0};
-	firing_time = 0;;
 	this->map_rect = map_rect;
 	this->self_rect = nullptr;
 	this->texture_ = nullptr;
 }
 
 
-void Enemies::behavior(void (function)(SDL_Rect*, Direction*,int, float, bool), std::vector<Object*> objects, std::vector<MultipleObjects*> multiple_objects, std::vector<Guns*> bullets, float delta)
+void Enemies::behavior(void (function)(SDL_Rect*, Direction*,int, float, bool, SDL_Rect*), std::vector<Object*> objects, std::vector<MultipleObjects*> multiple_objects, std::vector<Guns*> bullets, float delta, SDL_Rect* target)
 {
 	for (auto l : locations_) {
 
@@ -26,7 +25,7 @@ void Enemies::behavior(void (function)(SDL_Rect*, Direction*,int, float, bool), 
 			if (obj->is_collided(l.first))
 				is_collided = true;
 
-		function(l.first, l.second, this->velocity, delta, is_collided);
+		function(l.first, l.second, this->velocity, delta, is_collided, target);
 
 
 		place_in_map(l.first, map_rect);

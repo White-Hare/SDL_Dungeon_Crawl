@@ -167,6 +167,10 @@ void Game::controlls()
 			if (event->key.keysym.sym == SDLK_ESCAPE)
 				running = false;
 
+        if (event->button.button == SDL_BUTTON_LEFT)
+			enemies_[0]->add_enemy(event->motion.x + this->camera->camera_rect.x, event->motion.y + this->camera->camera_rect.y);
+        
+
 	}
 
 	const Uint8* currentKeyState = SDL_GetKeyboardState(NULL);
@@ -189,8 +193,9 @@ void Game::move()
 
 
 	for (auto& e : enemies_) {
-		e->behavior(slime, objects_, multiple_objects_, guns_, delta);
-		for (int i = 0; i < e->get_size(); i++) {
+		//e->behavior(targeting_slime, objects_, multiple_objects_, guns_, delta, hero->get_self_rect());
+		e->behavior(sliding_slime, objects_, multiple_objects_, guns_, delta);
+	    for (int i = 0; i < e->get_size(); i++) {
 			std::vector<int> coll_list = this->guns_[0]->collision_list(e->get_rect(i));
 			if (coll_list.size() != 0) {
 				e->erase_enemy(i);

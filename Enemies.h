@@ -11,10 +11,8 @@ class Enemies :
 	public Character
 {
 	int velocity;
-	float firing_time;
 	
     std::vector<std::pair<SDL_Rect*, Direction*>> locations_;
-
 
 	std::vector<std::pair<int, int>> frame_capes;
 	int *current_frame_pair;
@@ -23,7 +21,7 @@ public:
 	Enemies(SDL_Rect map_rect, int velocity = 0);
 
 
-	void behavior(void (function)(SDL_Rect*, Direction*, int, float, bool), std::vector<Object*> objects, std::vector<MultipleObjects*> multiple_objects, std::vector<Guns*> bullets, float delta);
+	void behavior(void (function)(SDL_Rect* self_rect, Direction*, int, float, bool, SDL_Rect* target), std::vector<Object*> objects, std::vector<MultipleObjects*> multiple_objects, std::vector<Guns*> bullets, float delta, SDL_Rect* target = nullptr);
 	void set_velocity(int velocity);
 
 	void add_enemy(SDL_Rect rect, Direction direction = RIGHT);
