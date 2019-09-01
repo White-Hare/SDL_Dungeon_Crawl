@@ -2,12 +2,12 @@
 #include <iostream>
 
 
-Guns::Guns(SDL_Rect map_rect, Object *boss) :MultipleObjects(map_rect)
+Guns::Guns(const char* ID, SDL_Rect map_rect, Object *boss) :MultipleObjects(ID, map_rect)
 {
 	boss_rect_ = boss->get_self_rect();
 	firing_frequency = 0;
 }
-Guns::Guns(SDL_Rect map_rect, SDL_Rect* boss) : MultipleObjects(map_rect)
+Guns::Guns(const char* ID, SDL_Rect map_rect, SDL_Rect* boss) : MultipleObjects(ID, map_rect)
 {
 	boss_rect_ = boss;
 	firing_frequency = 0;

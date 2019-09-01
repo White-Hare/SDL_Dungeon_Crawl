@@ -14,8 +14,8 @@ public MultipleObjects
 	SDL_Rect* boss_rect_;
 	float firing_frequency;
 public:
-	Guns(SDL_Rect map_rect, Object* boss);
-	Guns(SDL_Rect map_rect, SDL_Rect* boss);
+	Guns(const char* ID, SDL_Rect map_rect, Object* boss);
+	Guns(const char* ID, SDL_Rect map_rect, SDL_Rect* boss);
 
 	void change_boss(Object boss);
 	void change_boss(SDL_Rect* boss);

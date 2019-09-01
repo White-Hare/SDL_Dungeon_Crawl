@@ -18,7 +18,7 @@ class Hero :
      
 
 public:
-	Hero(SDL_Rect map_rect, const int velocity);
+	Hero(const char* ID, SDL_Rect map_rect, const int velocity);
 
 	void contoller(const Uint8* keystates, float delta, std::vector<Object*> objects, std::vector<MultipleObjects*> multiple_objects);
 	void gun_controller(Guns* gun, void (function)(SDL_Rect* rect, Direction direction, float delta),  std::vector<Object*> objects, std::vector<Enemies*> enemies, float delta, const Uint8* keystate);

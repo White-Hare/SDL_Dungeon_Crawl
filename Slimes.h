@@ -11,11 +11,11 @@ inline void sliding_slime(SDL_Rect* rect, Direction* direction, int velocity,flo
 	if (is_collided) {
 		if (*direction == LEFT) {
 			*direction = RIGHT;
-			rect->x += 1;
+			rect->x += 2;
 		}
 		else if (*direction == RIGHT) {
 			*direction = LEFT;
-			rect->x -= 1;
+			rect->x -= 2;
 		}
 	}
 

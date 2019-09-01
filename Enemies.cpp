@@ -2,7 +2,7 @@
 #include <iostream>
 #include <SDL_image.h>
 
-Enemies::Enemies(SDL_Rect map_rect, int velocity):Character(map_rect)
+Enemies::Enemies(const char* ID, SDL_Rect map_rect, int velocity):Character(ID, map_rect)
 {
 	this->velocity = velocity;
 	current_frame_pair = new int[2]{0,0};

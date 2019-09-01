@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-Hero::Hero(SDL_Rect map_rect, const int velocity):Character(map_rect)
+Hero::Hero(const char* ID, SDL_Rect map_rect, const int velocity):Character(ID, map_rect)
 {
 	this->velocity = velocity;
 	this->direction_ = UP;

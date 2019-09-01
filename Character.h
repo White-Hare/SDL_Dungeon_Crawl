@@ -15,7 +15,7 @@ protected:
 	SDL_Rect* frames;
 
 public:
-	Character(SDL_Rect map_rect);
+	Character(const char* ID, SDL_Rect map_rect);
 
 	void create_animation(float animation_frequency, unsigned rows, unsigned columns = 1);
 

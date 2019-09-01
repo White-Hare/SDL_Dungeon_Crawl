@@ -18,7 +18,7 @@ class Enemies :
 	int *current_frame_pair;
 
 public:
-	Enemies(SDL_Rect map_rect, int velocity = 0);
+	Enemies(const char* ID, SDL_Rect map_rect, int velocity = 0);
 
 
 	void behavior(void (function)(SDL_Rect* self_rect, Direction*, int, float, bool, SDL_Rect* target), std::vector<Object*> objects, std::vector<MultipleObjects*> multiple_objects, std::vector<Guns*> bullets, float delta, SDL_Rect* target = nullptr);

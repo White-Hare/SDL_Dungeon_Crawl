@@ -1,7 +1,7 @@
 #include "Character.h"
 
 
-Character::Character(SDL_Rect map_rect):Object(map_rect)
+Character::Character(const char* ID, SDL_Rect map_rect):Object(ID, map_rect)
 {
 	frames = nullptr;
 	number_of_frames = 0;

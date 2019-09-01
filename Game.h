@@ -11,7 +11,7 @@
 #include "MagicCircles.h"
 #include "Camera.h"
 #include "Enemies.h"
-
+#include "Console.h"
 
 
 class Game
@@ -32,6 +32,7 @@ class Game
 
 	Hero* hero;
 	Camera *camera;
+	Console* console;
 
 public:
 	Game();

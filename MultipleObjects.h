@@ -11,7 +11,7 @@ protected:
 	std::vector<SDL_Rect*> rects;
 
 public:
-	MultipleObjects(SDL_Rect map_rect);
+	MultipleObjects(const char* ID, SDL_Rect map_rect);
 
 	void append_rect(int x, int y);
 	void append_rect(SDL_Rect* rect);

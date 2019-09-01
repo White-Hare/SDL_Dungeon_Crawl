@@ -36,10 +36,10 @@ protected:
 	SDL_Rect *self_rect, map_rect;
 
 public:
-	
+	const char* ID;
 
 
-	Object(SDL_Rect map_rect);
+	Object(const char* ID, SDL_Rect map_rect);
 
 	bool load_texture(const char* path, SDL_Renderer *renderer,SDL_Color *color_key=nullptr);
 	void assign_texture(SDL_Texture* texture, SDL_Rect* rect);

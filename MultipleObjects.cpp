@@ -3,7 +3,7 @@
 #include <complex>
 
 
-MultipleObjects::MultipleObjects(SDL_Rect map_rect):Object(map_rect)
+MultipleObjects::MultipleObjects(const char* ID, SDL_Rect map_rect):Object(ID, map_rect)
 {
 }
 
@@ -19,7 +19,8 @@ void MultipleObjects::append_rect(SDL_Rect* rect)
 
 void MultipleObjects::pop_rect()
 {
-	rects.pop_back();
+	if (rects.size() > 0)
+	    rects.pop_back();
 }
 
 void MultipleObjects::erase_rect(int index)
@@ -36,7 +37,7 @@ void MultipleObjects::erase_rect(int index)
 Object* &MultipleObjects::operator[](int i)
 {    
 
-    Object* obj = new Object(map_rect);
+    Object* obj = new Object(ID, map_rect);
 	obj->assign_texture(texture_, rects[i]);
 	this->erase_rect(i);
 

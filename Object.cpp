@@ -3,11 +3,12 @@
 #include <iostream>
 
 
-Object::Object(SDL_Rect map_rect)
+Object::Object(const char* ID, SDL_Rect map_rect)
 {
 	self_rect = nullptr;
 	this->map_rect = map_rect;
 	texture_ = nullptr;
+	this->ID = ID;
 }
 
 bool Object::load_texture(const char* path, SDL_Renderer* renderer, SDL_Color* color_key)
