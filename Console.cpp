@@ -117,11 +117,11 @@ void Console::interpreter(std::vector<MultipleObjects*> objects) {
 
 
 
-	if (strings[0] == "add")   add(strings, objects);
-	else if (strings[0] == "list")  list(strings, objects);
-    else if (strings[0] == "erase") erase(strings, objects);
-	else if (strings[0] == "pop")  pop(strings, objects);
+	if (strings[0] == "list")       list(strings, objects);
 	else if (strings[0] == "clear") system("cls");
+	else if (strings[0] == "add")   add(strings, objects);
+    else if (strings[0] == "erase") erase(strings, objects);
+	else if (strings[0] == "pop" )  pop(strings, objects);
 	else  std::cout << strings[0] << " command doesn't exist\n";
 	    
 	
@@ -154,6 +154,10 @@ void Console::render(SDL_Renderer* renderer)
 template <class T>
 void Console::add(std::vector<std::string> strings, std::vector<T> objects)
 {
+	if (strings.size() < 4) {
+		std::cout << "Missing variable.\n";
+		return;
+	}
 
 	bool passed = false;
 	for (auto& mo : objects) {
@@ -200,6 +204,11 @@ void Console::list(std::vector<std::string> strings, std::vector<T> objects)
 template <class T>
 void Console::erase(std::vector<std::string> strings, std::vector<T> objects)
 {
+	if (strings.size() < 3) {
+		std::cout << "Missing variable.\n";
+		return;
+	}
+
 	bool passed = false;
 	for (auto& mo : objects) {
 		if (mo->ID == strings[1])
@@ -222,6 +231,11 @@ void Console::erase(std::vector<std::string> strings, std::vector<T> objects)
 template <class T>
 void Console::pop(std::vector<std::string> strings, std::vector<T> objects)
 {
+	if (strings.size() < 2) {
+		std::cout << "Missing variable.\n";
+		return;
+	}
+
 	bool passed = false;
 	for (auto& mo : objects) {
 		if (mo->ID == strings[1])

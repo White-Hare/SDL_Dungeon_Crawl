@@ -10,7 +10,7 @@ Hero::Hero(const char* ID, SDL_Rect map_rect, const int velocity):Character(ID, 
 	this->firing_time = 0;
 }
 
-void Hero::contoller(const Uint8* keystates, float delta, std::vector<Object*> objects, std::vector<MultipleObjects*> multiple_objects)
+void Hero::controller(const Uint8* keystates, float delta, std::vector<Object*> objects, std::vector<MultipleObjects*> multiple_objects)
 {
 
 	int dx = 0, dy = 0;

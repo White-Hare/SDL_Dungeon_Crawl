@@ -207,7 +207,7 @@ void Game::controlls()
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 
 
-	hero->contoller(currentKeyStates, delta, objects_, multiple_objects_);
+	hero->controller(currentKeyStates, delta, objects_, multiple_objects_);
 	hero->gun_controller(guns_[0], pistol, objects_, enemies_, delta, currentKeyStates);
 	
 }
@@ -226,8 +226,8 @@ void Game::move()
 
 
 	for (auto& e : enemies_) {
-		//e->behavior(targeting_slime, objects_, multiple_objects_, guns_, delta, hero->get_self_rect());
-		e->behavior(sliding_slime, objects_, multiple_objects_, guns_, delta);
+		//e->behaviour(targeting_slime, objects_, multiple_objects_, guns_, delta, hero->get_self_rect());
+		e->behaviour(sliding_slime, objects_, multiple_objects_, guns_, delta);
 	    for (int i = 0; i < e->get_size(); i++) {
 			std::vector<int> coll_list = this->guns_[0]->collision_list(e->get_rect(i));
 			if (coll_list.size() != 0) {

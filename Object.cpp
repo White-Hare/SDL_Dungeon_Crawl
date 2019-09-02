@@ -43,7 +43,7 @@ void Object::assign_texture(SDL_Texture* texture, SDL_Rect* rect)
 void Object::scale(int width)
 {
 
-	this->self_rect->h = width * (self_rect->h / self_rect->w);
+	this->self_rect->h = width * (static_cast<float>(self_rect->h) / static_cast<float>(self_rect->w));
 	this->self_rect->w = width;
 }
 
@@ -177,4 +177,5 @@ void Object::render(SDL_Rect* camera, SDL_Renderer* renderer, SDL_RendererFlip f
 Object::~Object()
 {
 	SDL_DestroyTexture(texture_);
+	delete self_rect;
 }

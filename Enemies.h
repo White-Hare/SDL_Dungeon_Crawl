@@ -21,8 +21,10 @@ public:
 	Enemies(const char* ID, SDL_Rect map_rect, int velocity = 0);
 
 
-	void behavior(void (function)(SDL_Rect* self_rect, Direction*, int, float, bool, SDL_Rect* target), std::vector<Object*> objects, std::vector<MultipleObjects*> multiple_objects, std::vector<Guns*> bullets, float delta, SDL_Rect* target = nullptr);
+    //void function(SDL_Rect* self_rect, Direction* direction, int velocity,float delta, std::vector<SDL_Rect*> collided_rects, SDL_Rect* target)
+	void behaviour(void (function)(SDL_Rect* self_rect, Direction*, int, float, std::vector<SDL_Rect*>, SDL_Rect* target), std::vector<Object*> objects, std::vector<MultipleObjects*> multiple_objects, std::vector<Guns*> bullets, float delta, SDL_Rect* target = nullptr);
 	void set_velocity(int velocity);
+
 
 	void add_enemy(SDL_Rect rect, Direction direction = RIGHT);
 	void add_enemy(int x, int y, Direction direction = RIGHT);

@@ -12,21 +12,23 @@ Enemies::Enemies(const char* ID, SDL_Rect map_rect, int velocity):Character(ID, 
 }
 
 
-void Enemies::behavior(void (function)(SDL_Rect*, Direction*,int, float, bool, SDL_Rect*), std::vector<Object*> objects, std::vector<MultipleObjects*> multiple_objects, std::vector<Guns*> bullets, float delta, SDL_Rect* target)
+void Enemies::behaviour(void (function)(SDL_Rect*, Direction*,int, float, std::vector<SDL_Rect*>, SDL_Rect*), std::vector<Object*> objects, std::vector<MultipleObjects*> multiple_objects, std::vector<Guns*> bullets, float delta, SDL_Rect* target)
 {
 	for (auto l : locations_) {
 
-		bool is_collided = false;
+		std::vector<SDL_Rect*> rects;
 		for (auto& m_obj : multiple_objects)
-			if (m_obj->collision_list(l.first).size() != 0)
-				is_collided = true;
+			for (int i : m_obj->collision_list(l.first)) 
+				rects.push_back(m_obj->get_rect(i));
 
+			
+		
 		for (auto& obj : objects)
 			if (obj->is_collided(l.first))
-				is_collided = true;
+				rects.push_back(obj->get_self_rect());
 
-		function(l.first, l.second, this->velocity, delta, is_collided, target);
 
+		function(l.first, l.second, this->velocity, delta, rects, target);
 
 		place_in_map(l.first, map_rect);
 	}
@@ -153,7 +155,6 @@ std::vector<int> Enemies::collision_list(Circle* circle)
 	return collided_objects;
 
 }
-
 
 bool Enemies::assign_frame_sequence(std::vector<std::pair<int, int>> frame_capes)
 {
