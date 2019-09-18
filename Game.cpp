@@ -36,6 +36,10 @@ bool Game::init(const char* name)
         return false;
 
 	window = createWindow(window, name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_RESIZABLE);
+
+	if (window == nullptr)
+		return false;
+
 	renderer = window->createRenderer();
 	event = new SDL_Event;
 
