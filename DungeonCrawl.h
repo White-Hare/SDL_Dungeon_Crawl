@@ -16,8 +16,6 @@
 #include "MultipleObjects.h"
 #include "Character.h"
 #include "Guns.h"
-#include "Hero.h"
-#include "MagicCircles.h"
 #include "Camera.h"
 #include "Enemies.h"
 #include "Console.h"
