@@ -6,8 +6,8 @@
 #include "Pistol.h"
 
 
-#define  WIDTH  640
-#define  HEIGHT 480
+#define  WIDTH  1920
+#define  HEIGHT 1080
 
 SDL_Rect map_rect{ -WIDTH / 2, -HEIGHT / 2, WIDTH * 2, HEIGHT * 2  };
 
@@ -54,13 +54,15 @@ bool Game::load_objects()
         return false;
     bricks->scale(32, 32);
 
-	for (int x = 0; x < WIDTH; x += 32)
-		for (int y = 0; y < HEIGHT; y += 448)
-			bricks->append_rect(x, y);
+	for (int x = 0; x < 960; x += 32)
+		for (int y = 0; y < 960; y += 960 - 32) 
+		        bricks->append_rect(x, y);
+		
 
-	for (int y = 0; y < HEIGHT; y += 32)
-		for (int x = 0; x < WIDTH; x += 608)
+	for (int x = 0; x < 960; x += 960 - 32)
+		for (int y = 32; y < 928; y += 32) 
 			bricks->append_rect(x, y);
+		
 
 	MultipleObjects *glasses = new MultipleObjects("glasses", map_rect);
 	glasses->load_texture("images/glass.png", renderer);
@@ -90,8 +92,8 @@ bool Game::load_objects()
 	slimes->assign_frame_sequence(std::vector<std::pair<int, int>>{ { 0, 4}});
 	slimes->scale(32,32);
 
-	slimes->add_enemy(400, 400);
-	slimes->add_enemy(300, 300);
+	for (int i = 64; i < 960 - 64; i += 32)
+		slimes->add_enemy(50, i);
 
     
 
@@ -117,9 +119,9 @@ bool Game::load_objects()
 	magic_circles_.push_back(dark_magic_circle);
 
 
-	this->multiple_objects_[0]->place(7, 340, 200);
-	this->multiple_objects_[0]->place(9, 100, 200);
-	this->multiple_objects_[0]->place(11, 100, 150);
+	this->multiple_objects_[0]->place(7, 486, 486);
+	this->multiple_objects_[0]->erase_rect(9);
+	this->multiple_objects_[0]->erase_rect(10);
 
 
 	console = new Console();
@@ -179,11 +181,19 @@ void Game::controlls()
 		window->handleWindowEvents(event,renderer);
 	}
 
-	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
+
+    if(camera->camera_rect.w != window->getWidth() || camera->camera_rect.h != window->getHeight())
+    {
+		camera->camera_rect.w = window->getWidth();
+		camera->camera_rect.h = window->getHeight();
+    }
 
 
-	hero->controller(currentKeyStates, delta, objects_, multiple_objects_);
-	hero->gun_controller(guns_[0], pistol, objects_, enemies_, delta, currentKeyStates);
+	const Uint8* keystates = SDL_GetKeyboardState(NULL);
+
+
+	hero->controller(keystates, delta, objects_, multiple_objects_);
+	hero->gun_controller(guns_[0], pistol, objects_, enemies_, delta, keystates);
 	
 }
 
@@ -195,7 +205,7 @@ void Game::move()
 	auto& dark_magic_circles = magic_circles_[0];
 
     while(dark_magic_circles->get_size() < 5)
-		dark_magic_circles->append_circle(rand() % WIDTH,rand() % HEIGHT);
+		dark_magic_circles->append_circle(rand() % 896 + 32,rand() % 896 + 32);
 
 	camera->focus(hero);
 

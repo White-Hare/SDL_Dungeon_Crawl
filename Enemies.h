@@ -42,7 +42,7 @@ public:
 	void move(unsigned index, int dx, int dy, float delta, bool place_in_map = true);
 
 
-	void render(SDL_Rect *camera, SDL_Renderer* renderer, float delta);
+	void render(SDL_Rect *camera, SDL_Renderer* renderer, float delta, bool flip_at_turn = true);
 
 	~Enemies();
 };

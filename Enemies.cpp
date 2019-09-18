@@ -161,19 +161,19 @@ void Enemies::set_velocity(int velocity)
 	this->velocity = velocity;
 }
 
-void Enemies::render(SDL_Rect* camera, SDL_Renderer* renderer, float delta)
+void Enemies::render(SDL_Rect* camera, SDL_Renderer* renderer, float delta, bool flip_at_turn)
 {
 	animation_time += delta;
 
 	for (int i : collision_list(camera)) {
 		SDL_RendererFlip flip = SDL_FLIP_NONE;
 
-
-		if (*locations_[i].second == RIGHT || *locations_[i].second == DOWN_RIGHT || *locations_[i].second == UP_RIGHT)
-			flip = SDL_FLIP_NONE;
-		if (*locations_[i].second == LEFT || *locations_[i].second == UP_LEFT || *locations_[i].second == DOWN_LEFT)
-			flip = SDL_FLIP_HORIZONTAL;
-
+		if (flip_at_turn) {
+			if (*locations_[i].second == RIGHT || *locations_[i].second == DOWN_RIGHT || *locations_[i].second == UP_RIGHT)
+				flip = SDL_FLIP_NONE;
+			if (*locations_[i].second == LEFT || *locations_[i].second == UP_LEFT || *locations_[i].second == DOWN_LEFT)
+				flip = SDL_FLIP_HORIZONTAL;
+		}
 
 		SDL_Rect* tmp_rect = new SDL_Rect{ -camera->x + locations_[i].first->x, -camera->y + locations_[i].first->y, locations_[i].first->w, locations_[i].first->h };
 		SDL_RenderCopyEx(renderer, this->texture_, &this->frames[current_frame + current_frame_pair[0]], tmp_rect, 0, nullptr, flip);
