@@ -24,8 +24,8 @@ public:
 	SDL_Rect* get_rect(int index);
 	const unsigned get_size();
 
-	void move(unsigned index, int velocity, NormalVector x_axis, NormalVector y_axis, float delta);
-	void place(unsigned index, int x, int y);
+	void move(unsigned index, int velocity, NormalVector x_axis, NormalVector y_axis, float delta, bool place_in_map = true);
+	void place(unsigned index, int x, int y, bool place_in_map = true);
 
 	std::vector<int> collision_list(SDL_Rect* rect2);
 	std::vector<int> collision_list(Circle* circle);

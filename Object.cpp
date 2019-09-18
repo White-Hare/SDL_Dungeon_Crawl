@@ -53,7 +53,7 @@ void Object::scale(int width, int height)
 	this->self_rect->h = height;
 }
 
-void Object::move(int velocity, NormalVector x_axis, NormalVector y_axis, float delta)
+void Object::move(int velocity, NormalVector x_axis, NormalVector y_axis, float delta, bool pim)
 {
     
 	if (x_axis && y_axis) {
@@ -67,17 +67,18 @@ void Object::move(int velocity, NormalVector x_axis, NormalVector y_axis, float 
 	else if (y_axis)
 		self_rect->y +=velocity * y_axis * delta;
 
-	place_in_map(self_rect, map_rect);
+    if(pim)
+    	place_in_map(self_rect, map_rect);
 }
 
-void Object::place(int x, int y)
+void Object::place(int x, int y, bool pim)
 {  
 	self_rect->x = x;
 	self_rect->y = y;
 
-	place_in_map(self_rect, map_rect);
+    if(pim)
+	    place_in_map(self_rect, map_rect);
 }
-
 
 
 
@@ -171,7 +172,6 @@ void Object::render(SDL_Rect* camera, SDL_Renderer* renderer, SDL_RendererFlip f
 	SDL_RenderCopyEx(renderer, this->texture_, clip, tmp_rect, angle, center, flip);
 	delete tmp_rect;
 }
-
 
 
 Object::~Object()

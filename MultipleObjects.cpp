@@ -55,7 +55,7 @@ const unsigned MultipleObjects::get_size()
 }
 
 
-void MultipleObjects::move(unsigned index, int velocity, NormalVector x_axis, NormalVector y_axis, float delta)
+void MultipleObjects::move(unsigned index, int velocity, NormalVector x_axis, NormalVector y_axis, float delta, bool pim)
 {
 
 
@@ -71,16 +71,17 @@ void MultipleObjects::move(unsigned index, int velocity, NormalVector x_axis, No
 		rects[index]->y += velocity * y_axis* delta;
 
 
-
-	place_in_map(rects[index], map_rect);
+    if(pim)
+    	place_in_map(rects[index], map_rect);
 }
 
-void MultipleObjects::place(unsigned index, int x, int y)
+void MultipleObjects::place(unsigned index, int x, int y, bool pim)
 {
 	rects[index]->x = x;
 	rects[index]->y = y;
 
-	place_in_map(rects[index], map_rect);
+    if(pim)
+	    place_in_map(rects[index], map_rect);
 }
 
 std::vector<int> MultipleObjects::collision_list(SDL_Rect* rect2)

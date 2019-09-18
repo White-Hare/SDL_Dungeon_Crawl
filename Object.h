@@ -46,8 +46,8 @@ public:
 	
     void scale(int width);
 	void scale(int width, int height);
-	void move(int velocity, NormalVector x_axis, NormalVector y_axis, float delta);
-	void place(int x, int y);
+	void move(int velocity, NormalVector x_axis, NormalVector y_axis, float delta, bool place_in_map = true);
+	void place(int x, int y, bool place_in_map = true);
 
 
 	void set_colorModulation(SDL_Color color);
@@ -66,7 +66,7 @@ public:
 };
 
 
-static  void place_in_map(SDL_Rect* rect, SDL_Rect map_rect)
+static void place_in_map(SDL_Rect* rect, SDL_Rect map_rect)
 {
 	if (rect->x < map_rect.x)
 		rect->x = map_rect.x;
