@@ -14,8 +14,7 @@ class Enemies :
 	
     std::vector<std::pair<SDL_Rect*, Direction*>> locations_;
 
-	std::vector<std::pair<int, int>> frame_capes;
-	int *current_frame_pair;
+
 
 public:
 	Enemies(const char* ID, SDL_Rect map_rect, int velocity = 0);
@@ -43,11 +42,7 @@ public:
 	void move(unsigned index, int dx, int dy, float delta, bool place_in_map = true);
 
 
-	bool change_current_frame_pair(unsigned first, unsigned last);
-	bool change_current_frame_pair(unsigned sequence_number);
-        
-	bool assign_frame_sequence(std::vector<std::pair<int, int>> frames);
-	void render(SDL_Rect *camera, SDL_Renderer* renderer, float delta) override;
+	void render(SDL_Rect *camera, SDL_Renderer* renderer, float delta);
 
 	~Enemies();
 };

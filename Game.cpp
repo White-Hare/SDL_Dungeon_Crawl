@@ -240,8 +240,9 @@ void Game::render()
 
 	for (auto& b : guns_)
 		b->render(&this->camera->camera_rect,  renderer, nullptr);
-	
-	hero->render(&this->camera->camera_rect,  renderer, delta);
+
+	std::cout << "hello\n";
+	hero->render_hero(&this->camera->camera_rect,  renderer, delta);
 
 	console->render(renderer);
 

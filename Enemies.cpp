@@ -156,65 +156,6 @@ std::vector<int> Enemies::collision_list(Circle* circle)
 
 }
 
-bool Enemies::assign_frame_sequence(std::vector<std::pair<int, int>> frame_capes)
-{
-	if (frame_capes.size() == 0) {
-		std::cout << "Animation haven't been created\n";
-		return false;
-	}
-
-	try
-	{
-		for (auto fc : frame_capes)
-			if (fc.first > fc.second)
-				throw "Order is wrong";
-
-	}
-	catch (const char * err) {
-		std::cout << err << '\n';
-		return false;
-	}
-
-	this->frame_capes = frame_capes;
-	current_frame_pair[0] = frame_capes[0].first;
-	current_frame_pair[1] = frame_capes[0].second;
-
-	return true;
-}
-
-bool Enemies::change_current_frame_pair(unsigned first, unsigned last)
-{
-	if (first > last) {
-		std::cerr << "First number cannot be bigger than last.\n";
-        return false;
-	}
-
-	if (last >= frame_capes.end()->second) {
-		std::cerr << "Last number cannot be longer than sprite length.\n";
-		return false;
-	}
-
-
-	this->current_frame_pair[0] = first;
-	this->current_frame_pair[1] = last;
-
-    return true;
-}
-
-bool Enemies::change_current_frame_pair(unsigned sequence_number)
-{
-	if (sequence_number >= this->frame_capes.size()) {
-		std::cout << "Sequence number is out of bounds\n";
-        return false;
-	}
-
-	this->current_frame_pair[0] = frame_capes[sequence_number].first;
-	this->current_frame_pair[0] = frame_capes[sequence_number].second;
-
-	return true;
-}
-
-
 void Enemies::set_velocity(int velocity)
 {
 	this->velocity = velocity;

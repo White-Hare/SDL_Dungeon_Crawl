@@ -120,29 +120,7 @@ void Hero::gun_controller(Guns* gun, void function(SDL_Rect* rect, Direction dir
 	}
 }
 
-bool Hero::assign_frame_sequence(std::vector<std::pair<int, int>> frame_capes)
-{
-	try
-	{
-		for (auto fc : frame_capes)
-			if (fc.first > fc.second)
-				throw "Order is wrong";
-
-	}
-	catch (const char * err) {
-		std::cout << err << '\n';
-        return false;
-	}
-	
-    this->frame_capes = frame_capes;
-	current_frame_pair[0] = frame_capes[0].first;
-	current_frame_pair[1] = frame_capes[0].second;
-
-	return true;
-}
-
-
-void Hero::render(SDL_Rect* camera, SDL_Renderer* renderer, float delta)
+void Hero::render_hero(SDL_Rect* camera, SDL_Renderer* renderer, float delta)
 {
 	animation_time += delta;
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
@@ -176,16 +154,7 @@ void Hero::render(SDL_Rect* camera, SDL_Renderer* renderer, float delta)
 		flip = SDL_FLIP_NONE;
 
 	}
-
-	SDL_Rect* tmp_rect = new SDL_Rect{ -camera->x + self_rect->x, -camera->y + self_rect->y, self_rect->w, self_rect->h };
-	SDL_RenderCopyEx(renderer, this->texture_, &this->frames[current_frame + current_frame_pair[0]], tmp_rect, 0 ,nullptr, flip);
-	delete tmp_rect;
-
-	if (animation_time > animation_frequency) {
-		current_frame++;
-		current_frame %= current_frame_pair[1] - current_frame_pair[0];
-		animation_time = 0;
-	}
+	render(camera, renderer, delta, flip);
 }
 
 Hero::~Hero()
