@@ -4,6 +4,8 @@
 #include <vector>
 #include "DungeonCrawl.h"
 
+#include "Hero.h"
+#include "MagicCircles.h"
 
 class Game
 {
