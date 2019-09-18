@@ -1,16 +1,4 @@
 #include "Game.h"
-#include "Object.h"
-#include "Character.h"
-#include "Multipleobjects.h"
-#include "Guns.h"
-#include "Enemies.h"
-#include "Hero.h"
-
-
-#include <SDL.h>
-#include <SDL_ttf.h>
-#include <SDL_mixer/SDL_mixer.h>
-#include <SDL_image.h>
 
 #include <iostream>
 #include <ctime>
@@ -43,34 +31,15 @@ bool Game::init(const char* name)
 {
 	srand(time(NULL));
 
-	//Initiliaze SDL
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
-		std::cout << "SDL couldn't been initialized. SDL_ERROR::" << SDL_GetError() << '\n';
-		return 0;
-	}
-	if (TTF_Init() == -1)
-	{
-		std::cout << "TTF couldn't been initialized. TTF_ERROR::" << TTF_GetError() << '\n';
-		return  0;
-	}
 
-	int img_flags = IMG_INIT_PNG | IMG_INIT_JPG;
-	if (!(IMG_Init(img_flags) & img_flags))
-	{
-		std::cout << "IMG_Loader couldn't been initialized. IMG_ERROR::" << IMG_GetError() << '\n';
-		return  0;
-	}
-	if (TTF_Init() == -1)
-	{
-		std::cout << "TTF couldn't been initialized. TTF_ERROR::" << TTF_GetError() << '\n';
-		return  0;
-	}
+	if(!DungeonCrawl_INIT())
+        return false;
 
-	window = SDL_CreateWindow(name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	window = createWindow(window, name, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_RESIZABLE);
+	renderer = window->createRenderer();
 	event = new SDL_Event;
 
-	return 0;
+	return true;
 }
 
 bool Game::load_objects()
@@ -202,6 +171,8 @@ void Game::controlls()
 			enemies_[0]->add_enemy(event->motion.x + this->camera->camera_rect.x, event->motion.y + this->camera->camera_rect.y);
 
 
+
+		window->handleWindowEvents(event,renderer);
 	}
 
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
@@ -275,8 +246,8 @@ void Game::render()
 
 void Game::close()
 {
-	SDL_DestroyWindow(window);
-	SDL_DestroyRenderer(renderer);
+	window->free();
+    SDL_DestroyRenderer(renderer);
 
 	delete event;
 

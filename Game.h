@@ -1,22 +1,13 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <SDL.h>
 #include <vector>
-#include "Object.h"
-#include "MultipleObjects.h"
-#include "Character.h"
-#include "Guns.h"
-#include "Hero.h"
-#include "MagicCircles.h"
-#include "Camera.h"
-#include "Enemies.h"
-#include "Console.h"
+#include "DungeonCrawl.h"
 
 
 class Game
 {
-	SDL_Window* window;
+	Window* window;
 	SDL_Renderer* renderer;
 	SDL_Event* event;
 

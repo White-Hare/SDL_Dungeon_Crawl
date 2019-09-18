@@ -36,7 +36,6 @@ void Hero::controller(const Uint8* keystates, float delta, std::vector<Object*> 
 
 
 	for (auto& m_obj : multiple_objects) {
-
 		if (dx == 0 && dy == 0)
 			break;
 
