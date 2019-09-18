@@ -211,21 +211,23 @@ void MagicCircles::draw(SDL_Rect* camera, SDL_Renderer* renderer, float delta)
 	SDL_SetRenderDrawColor(renderer, 0,0,0,255);
 
 
-	for (auto& obj : this->magicCircles) {
+	Sint16 star_x[5];
+	Sint16 star_y[5];
+	const unsigned number_of_sides = 5;
 
-		float radius_of_star = obj->radius - thickness;
-		Sint16 star_x[5];
-		Sint16 star_y[5];
-		unsigned number_of_sides = 5;
+	for (int index: collision_list(camera)) {
+
+		float radius_of_star = magicCircles[index]->radius - thickness;
+
 
 
 		for (int t = 0; t < this->thickness; t++) {
-			circleRGBA(renderer, obj->center_x - camera->x , obj->center_y - camera->y , obj->radius - t, this->color.r, this->color.g, this->color.b, this->color.a);
+			circleRGBA(renderer, magicCircles[index]->center_x - camera->x , magicCircles[index]->center_y - camera->y , magicCircles[index]->radius - t, this->color.r, this->color.g, this->color.b, this->color.a);
 
 
             for(int i = 0; i<number_of_sides; i++){
-					star_x[i] = (radius_of_star - t)* std::cos(static_cast<float>(i) / number_of_sides * PI * 2) + static_cast<float>(obj->center_x) - camera->x;
-					star_y[i] = (radius_of_star - t)* std::sin(static_cast<float>(i) / number_of_sides * PI * 2) + static_cast<float>(obj->center_y) - camera->y;
+					star_x[i] = (radius_of_star - t)* std::cos(static_cast<float>(i) / number_of_sides * PI * 2) + static_cast<float>(magicCircles[index]->center_x) - camera->x;
+					star_y[i] = (radius_of_star - t)* std::sin(static_cast<float>(i) / number_of_sides * PI * 2) + static_cast<float>(magicCircles[index]->center_y) - camera->y;
 
 				}
 

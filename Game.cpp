@@ -1,6 +1,5 @@
 #include "Game.h"
 
-#include <iostream>
 #include <ctime>
 
 #include "Slimes.h"
@@ -171,6 +170,7 @@ void Game::controlls()
 			console->add_text(event->text.text);
 
 
+        if(event->type == SDL_MOUSEBUTTONDOWN)
         if (event->button.button == SDL_BUTTON_LEFT)
 			enemies_[0]->add_enemy(event->motion.x + this->camera->camera_rect.x, event->motion.y + this->camera->camera_rect.y);
 

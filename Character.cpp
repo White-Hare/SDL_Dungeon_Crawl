@@ -95,9 +95,11 @@ void Character::render(SDL_Rect* camera,SDL_Renderer* renderer, float delta)
 {
 	animation_time += delta;
 
-	SDL_Rect* tmp_rect = new SDL_Rect{ -camera->x + self_rect->x, -camera->y + self_rect->y, self_rect->w, self_rect->h };
-	SDL_RenderCopy(renderer, this->texture_, &this->frames[current_frame + current_frame_pair[0]], tmp_rect);
-	delete tmp_rect;
+	if (is_collided(camera)) {
+		SDL_Rect* tmp_rect = new SDL_Rect{ -camera->x + self_rect->x, -camera->y + self_rect->y, self_rect->w, self_rect->h };
+		SDL_RenderCopy(renderer, this->texture_, &this->frames[current_frame + current_frame_pair[0]], tmp_rect);
+		delete tmp_rect;
+	}
 
 	if (animation_time > animation_frequency) {
 		current_frame++;
@@ -111,9 +113,11 @@ void Character::render(SDL_Rect* camera, SDL_Renderer* renderer, float delta, SD
 {
 	animation_time += delta;
 
-	SDL_Rect* tmp_rect = new SDL_Rect{ -camera->x + self_rect->x, -camera->y + self_rect->y, self_rect->w, self_rect->h };
-	SDL_RenderCopyEx(renderer, this->texture_, &this->frames[current_frame + current_frame_pair[0]], tmp_rect, angle, center, flip);
-	delete tmp_rect;
+	if (is_collided(camera)) {
+		SDL_Rect* tmp_rect = new SDL_Rect{ -camera->x + self_rect->x, -camera->y + self_rect->y, self_rect->w, self_rect->h };
+		SDL_RenderCopyEx(renderer, this->texture_, &this->frames[current_frame + current_frame_pair[0]], tmp_rect, angle, center, flip);
+		delete tmp_rect;
+	}
 
 	if (animation_time > animation_frequency) {
 		current_frame++;

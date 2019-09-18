@@ -149,7 +149,6 @@ void Console::render(SDL_Renderer* renderer)
 
 
 
-
 //commands
 template <class T>
 void Console::add(std::vector<std::string> strings, std::vector<T> objects)

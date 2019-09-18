@@ -37,6 +37,9 @@
     <Filter Include="Source Files\Wepons\Magic">
       <UniqueIdentifier>{0c714aad-0450-4ecb-8fd1-3318a338e7b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Characters\Enemies">
+      <UniqueIdentifier>{e5d401f3-5151-472d-acc1-eb61041d661d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -66,6 +69,15 @@
     <ClCompile Include="MagicCircles.cpp">
       <Filter>Source Files\Wepons\Magic</Filter>
     </ClCompile>
+    <ClCompile Include="Enemies.cpp">
+      <Filter>Source Files\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h">
@@ -93,6 +105,21 @@
       <Filter>Header Files\Wepons\Magic</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemies.h">
+      <Filter>Header Files\Characters\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Slimes.h">
+      <Filter>Header Files\Characters\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonCrawl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

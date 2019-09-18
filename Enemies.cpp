@@ -104,10 +104,10 @@ std::vector<int> Enemies::collision_list(SDL_Rect* rect2)
 		if (locations_[i].first->x > rect2->x + rect2->w)
 			continue;
 
-		if (locations_[i].first->x + locations_[i].first->w < rect2->x)
+		if (locations_[i].first->x + locations_[i].first ->w < rect2->x)
 			continue;
 
-		if (locations_[i].first->y > locations_[i].first->y + rect2->h)
+		if (locations_[i].first->y > rect2->y + rect2->h)
 			continue;
 
 		if (locations_[i].first->y + locations_[i].first->h < rect2->y)
@@ -165,17 +165,17 @@ void Enemies::render(SDL_Rect* camera, SDL_Renderer* renderer, float delta)
 {
 	animation_time += delta;
 
-	for (auto l : locations_) {
+	for (int i : collision_list(camera)) {
 		SDL_RendererFlip flip = SDL_FLIP_NONE;
 
 
-		if (*l.second == RIGHT || *l.second == DOWN_RIGHT || *l.second == UP_RIGHT)
+		if (*locations_[i].second == RIGHT || *locations_[i].second == DOWN_RIGHT || *locations_[i].second == UP_RIGHT)
 			flip = SDL_FLIP_NONE;
-		if (*l.second == LEFT || *l.second == UP_LEFT || *l.second == DOWN_LEFT)
+		if (*locations_[i].second == LEFT || *locations_[i].second == UP_LEFT || *locations_[i].second == DOWN_LEFT)
 			flip = SDL_FLIP_HORIZONTAL;
 
 
-		SDL_Rect* tmp_rect = new SDL_Rect{ -camera->x + l.first->x, -camera->y + l.first->y, l.first->w, l.first->h };
+		SDL_Rect* tmp_rect = new SDL_Rect{ -camera->x + locations_[i].first->x, -camera->y + locations_[i].first->y, locations_[i].first->w, locations_[i].first->h };
 		SDL_RenderCopyEx(renderer, this->texture_, &this->frames[current_frame + current_frame_pair[0]], tmp_rect, 0, nullptr, flip);
 		delete tmp_rect;
 

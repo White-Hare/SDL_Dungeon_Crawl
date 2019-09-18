@@ -7,6 +7,7 @@
 #include "Hero.h"
 #include "MagicCircles.h"
 
+
 class Game
 {
 	Window* window;

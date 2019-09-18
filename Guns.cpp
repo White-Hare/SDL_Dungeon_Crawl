@@ -84,12 +84,15 @@ void Guns::behavior(void (function)(SDL_Rect*, Direction, float), float delta)
 
 void Guns::render(SDL_Rect* camera, SDL_Renderer* renderer, SDL_Rect* clip)
 {
-	for (int i = 0; i < rects.size(); i++) {
+	for (auto i : collision_list(camera))
+	{
+
 		if (directions_[i] == RIGHT) {
 			SDL_Rect* tmp_rect = new SDL_Rect{ -camera->x + rects[i]->x, -camera->y + rects[i]->y, rects[i]->w, rects[i]->h };
 			SDL_RenderCopy(renderer, this->texture_, clip, tmp_rect);
 			delete tmp_rect;
 		}
+
 		else {
 			SDL_Rect* tmp_rect = new SDL_Rect{ -camera->x + rects[i]->x, -camera->y + rects[i]->y, rects[i]->w, rects[i]->h };
 			SDL_RenderCopyEx(renderer, this->texture_, clip, tmp_rect, directions_[i], new SDL_Point{ self_rect->w / 2, self_rect->h / 2 }, SDL_FLIP_NONE);
@@ -98,19 +101,25 @@ void Guns::render(SDL_Rect* camera, SDL_Renderer* renderer, SDL_Rect* clip)
 	}
 }
 
+
 void Guns::render(SDL_Rect* camera, SDL_Renderer* renderer, SDL_RendererFlip flip, double angle, SDL_Point* center, SDL_Rect* clip)
 {
 
-	for (int i = 0; i < rects.size(); i++) {
+	for (auto i : collision_list(camera))
+	{
 		if (directions_[i] == RIGHT) {
-			SDL_Rect* tmp_rect = new SDL_Rect{ camera->x + rects[i]->x, camera->y + rects[i]->y, rects[i]->w, rects[i]->h };
-			SDL_RenderCopyEx(renderer, this->texture_, clip, tmp_rect, angle, center, flip);
-			delete tmp_rect;
+			if (is_collided(camera)) {
+				SDL_Rect* tmp_rect = new SDL_Rect{ camera->x + rects[i]->x, camera->y + rects[i]->y, rects[i]->w, rects[i]->h };
+				SDL_RenderCopyEx(renderer, this->texture_, clip, tmp_rect, angle, center, flip);
+				delete tmp_rect;
+			}
 		}
 		else {
-			SDL_Rect* tmp_rect = new SDL_Rect{ camera->x + rects[i]->x, camera->y + rects[i]->y, rects[i]->w, rects[i]->h };
-			SDL_RenderCopyEx(renderer, this->texture_, clip, tmp_rect, directions_[i], new SDL_Point{ self_rect->w / 2, self_rect->h / 2 }, SDL_FLIP_NONE);
-			delete tmp_rect;
+			if (is_collided(camera)) {
+				SDL_Rect* tmp_rect = new SDL_Rect{ camera->x + rects[i]->x, camera->y + rects[i]->y, rects[i]->w, rects[i]->h };
+				SDL_RenderCopyEx(renderer, this->texture_, clip, tmp_rect, directions_[i], new SDL_Point{ self_rect->w / 2, self_rect->h / 2 }, SDL_FLIP_NONE);
+				delete tmp_rect;
+			}
 		}
 	}
 }

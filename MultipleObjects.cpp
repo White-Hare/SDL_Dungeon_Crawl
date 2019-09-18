@@ -149,18 +149,19 @@ std::vector<int> MultipleObjects::collision_list(Circle* circle)
 
 void MultipleObjects::render(SDL_Rect* camera,SDL_Renderer* renderer, SDL_Rect* clip)
 {
-	for (int i = 0; i < rects.size(); i++) {
+	for (auto i : collision_list(camera)){
 		SDL_Rect* tmp_rect = new SDL_Rect{ -camera->x + rects[i]->x, -camera->y + rects[i]->y, rects[i]->w, rects[i]->h };
-	    SDL_RenderCopy(renderer, this->texture_, clip, tmp_rect);
+		SDL_RenderCopy(renderer, this->texture_, clip, tmp_rect);
 		delete tmp_rect;
+
 	}
 }
 
 void MultipleObjects::render(SDL_Rect* camera,SDL_Renderer* renderer, SDL_RendererFlip flip, double angle, SDL_Point* center, SDL_Rect* clip)
 {
-	for (int i = 0; i < rects.size(); i++) {
+	for (auto i : collision_list(camera)) {
 		SDL_Rect* tmp_rect = new SDL_Rect{ -camera->x + rects[i]->x, -camera->y + rects[i]->y, rects[i]->w, rects[i]->h };
-	    SDL_RenderCopyEx(renderer, this->texture_, clip, this->rects[i], angle, center, flip);
+		SDL_RenderCopyEx(renderer, this->texture_, clip, this->rects[i], angle, center, flip);
 		delete tmp_rect;
 	}
 }
