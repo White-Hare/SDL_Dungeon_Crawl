@@ -54,7 +54,7 @@ void Enemies::pop_enemy()
 	locations_.pop_back();
 }
 
-void Enemies::move(unsigned index, int x_axis, int y_axis, float delta)
+void Enemies::move(unsigned index, int x_axis, int y_axis, float delta, bool pim)
 {
 
 	if (x_axis && y_axis) {
@@ -69,16 +69,17 @@ void Enemies::move(unsigned index, int x_axis, int y_axis, float delta)
 		locations_[index].first->y += velocity * y_axis* delta;
 
 
-
-	place_in_map(locations_[index].first, map_rect);
+    if(pim)
+	    place_in_map(locations_[index].first, map_rect);
 }
 
-void Enemies::place(unsigned index, int x, int y)
+void Enemies::place(unsigned index, int x, int y, bool pim)
 {
 	locations_[index].first->x = x;
 	locations_[index].first->y = y;
 
-	place_in_map(locations_[index].first, map_rect);
+    if(pim)
+    	place_in_map(locations_[index].first, map_rect);
 }
 
 SDL_Rect* Enemies::get_rect(unsigned index)
@@ -86,11 +87,10 @@ SDL_Rect* Enemies::get_rect(unsigned index)
 	return locations_[index].first;
 }
 
-unsigned Enemies::get_size()
+const unsigned Enemies::get_size()
 {
 	return locations_.size();
 }
-
 
 std::vector<int> Enemies::collision_list(SDL_Rect* rect2)
 {
@@ -181,6 +181,39 @@ bool Enemies::assign_frame_sequence(std::vector<std::pair<int, int>> frame_capes
 
 	return true;
 }
+
+bool Enemies::change_current_frame_pair(unsigned first, unsigned last)
+{
+	if (first > last) {
+		std::cerr << "First number cannot be bigger than last.\n";
+        return false;
+	}
+
+	if (last >= frame_capes.end()->second) {
+		std::cerr << "Last number cannot be longer than sprite length.\n";
+		return false;
+	}
+
+
+	this->current_frame_pair[0] = first;
+	this->current_frame_pair[1] = last;
+
+    return true;
+}
+
+bool Enemies::change_current_frame_pair(unsigned sequence_number)
+{
+	if (sequence_number >= this->frame_capes.size()) {
+		std::cout << "Sequence number is out of bounds\n";
+        return false;
+	}
+
+	this->current_frame_pair[0] = frame_capes[sequence_number].first;
+	this->current_frame_pair[0] = frame_capes[sequence_number].second;
+
+	return true;
+}
+
 
 void Enemies::set_velocity(int velocity)
 {

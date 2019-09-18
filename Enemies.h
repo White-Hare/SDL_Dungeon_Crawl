@@ -33,16 +33,18 @@ public:
 
 	SDL_Rect* get_rect(unsigned index);
 
-	unsigned get_size();
+	const unsigned get_size();
 
 	std::vector<int> collision_list(SDL_Rect* rect2);
 	std::vector<int> collision_list(Circle* circle);
 
 
-	void place(unsigned index, int x, int y);
-	void move(unsigned index, int dx, int dy, float delta);
-    
+	void place(unsigned index, int x, int y, bool place_in_map = true);
+	void move(unsigned index, int dx, int dy, float delta, bool place_in_map = true);
 
+
+	bool change_current_frame_pair(unsigned first, unsigned last);
+	bool change_current_frame_pair(unsigned sequence_number);
         
 	bool assign_frame_sequence(std::vector<std::pair<int, int>> frames);
 	void render(SDL_Rect *camera, SDL_Renderer* renderer, float delta) override;
